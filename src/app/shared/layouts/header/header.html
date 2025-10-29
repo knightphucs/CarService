@@ -1,0 +1,160 @@
+<header class="app-header">
+  <!-- Main Header -->
+  <mat-toolbar class="header-main">
+    <div class="header-container">
+      <!-- Logo -->
+      <div class="logo-section">
+        <a href="/" class="logo-link">
+          <div class="logo-placeholder">
+            <mat-icon class="logo-icon">directions_car</mat-icon>
+            <span class="logo-text">SALECAR</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button mat-icon-button class="mobile-menu-btn show-mobile" (click)="toggleMobileMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <!-- Search & Contact Section (Desktop) -->
+      <div class="header-content hide-mobile">
+        <div class="search-contact-wrapper">
+          <!-- Search Form -->
+          <div class="search-section">
+            <mat-form-field appearance="outline" class="search-field">
+              <!-- <mat-icon matPrefix>search</mat-icon> -->
+              <input
+                matInput
+                placeholder="Tìm kiếm sản phẩm..."
+                [(ngModel)]="searchQuery"
+                (keyup.enter)="onSearch()"
+              />
+              <button mat-icon-button matSuffix (click)="onSearch()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="contact-section">
+        <a href="tel:+84909009009" mat-raised-button color="primary" class="hotline-btn">
+          <mat-icon>phone</mat-icon>
+          Hotline: 0909.009.009
+        </a>
+        <p class="address">
+          <mat-icon class="location-icon">location_on</mat-icon>
+          Số 28 Lương Ngọc Quyến, Hà Đông, Hà Nội
+        </p>
+      </div>
+
+      <!-- Cart Icon -->
+      <!-- <button mat-icon-button class="cart-btn" aria-label="Shopping cart">
+        <mat-icon 
+          [matBadge]="cartItemCount" 
+          matBadgeColor="warn" 
+          [matBadgeHidden]="cartItemCount === 0"
+          aria-hidden="false">
+          shopping_cart
+        </mat-icon>
+      </button> -->
+    </div>
+  </mat-toolbar>
+
+  <!-- Navigation Bar (Desktop) -->
+  <mat-toolbar class="header-nav hide-mobile">
+    <div class="nav-container">
+      <!-- Category Menu -->
+      <div class="category-menu">
+        <button mat-button [matMenuTriggerFor]="categoryMenu" class="category-btn">
+          <mat-icon>menu</mat-icon>
+          Danh mục sản phẩm
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #categoryMenu="matMenu" class="category-dropdown">
+          <ng-container *ngFor="let category of categories">
+            <button
+              mat-menu-item
+              [matMenuTriggerFor]="category.children ? subMenu : null"
+              (click)="!category.children && navigateTo(category.link)"
+            >
+              <mat-icon *ngIf="category.icon">{{ category.icon }}</mat-icon>
+              <span>{{ category.label }}</span>
+              <!-- <mat-icon *ngIf="category.children" class="submenu-arrow">chevron_right</mat-icon> -->
+            </button>
+            <mat-menu #subMenu="matMenu">
+              <button
+                mat-menu-item
+                *ngFor="let child of category.children"
+                (click)="navigateTo(child.link)"
+              >
+                {{ child.label }}
+              </button>
+            </mat-menu>
+          </ng-container>
+        </mat-menu>
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="main-nav">
+        <a *ngFor="let item of navItems" [href]="item.link" mat-button class="nav-link">
+          {{ item.label }}
+        </a>
+      </nav>
+    </div>
+  </mat-toolbar>
+
+  <!-- Mobile Sidebar -->
+  <mat-sidenav-container class="mobile-sidenav">
+    <mat-sidenav #sidenav [(opened)]="isMobileMenuOpen" mode="over" position="start">
+      <mat-toolbar color="primary">
+        <span>Menu</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="sidenav.close()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <mat-nav-list>
+        <!-- Search in Mobile -->
+        <div class="mobile-search">
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput placeholder="Tìm kiếm..." [(ngModel)]="searchQuery" />
+          </mat-form-field>
+        </div>
+
+        <!-- Navigation Items -->
+        <a mat-list-item *ngFor="let item of navItems" [href]="item.link" (click)="sidenav.close()">
+          {{ item.label }}
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <!-- Categories -->
+        <h3 mat-subheader>Danh mục sản phẩm</h3>
+        <ng-container *ngFor="let category of categories">
+          <a mat-list-item [href]="category.link" *ngIf="!category.children">
+            <mat-icon mat-list-icon>{{ category.icon }}</mat-icon>
+            <span>{{ category.label }}</span>
+          </a>
+          <mat-expansion-panel *ngIf="category.children" class="mobile-category">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>{{ category.icon }}</mat-icon>
+                {{ category.label }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-nav-list>
+              <a mat-list-item *ngFor="let child of category.children" [href]="child.link">
+                {{ child.label }}
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+        </ng-container>
+      </mat-nav-list>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</header>
