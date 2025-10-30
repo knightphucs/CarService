@@ -1,0 +1,144 @@
+<header class="main-header">
+  <!-- Top bar -->
+  <div class="header-top">
+    <div class="container flex justify-end">
+      <a href="/blog">Blog</a> <a href="/dealership">Đại lý & Đối tác</a>
+      <a href="/contact" class="highlight">Liên hệ</a>
+    </div>
+  </div>
+  <!-- Middle: Logo, Search, Icons -->
+  <div class="header-middle container flex align-center space-between">
+    <!-- Left: Menu Button + Logo -->
+    <div class="header-left flex align-center">
+      <button
+        class="mobile-menu-btn"
+        mat-icon-button
+        (click)="toggleMobileMenu()"
+        aria-label="Toggle menu"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="logo">
+        <a routerLink="/">
+          <span class="logo-main">SALE</span><span class="logo-accent">CAR</span>
+        </a>
+      </div>
+    </div>
+    <!-- Search bar -->
+    <div class="search-bar">
+      <mat-form-field appearance="outline" class="search-input">
+        <mat-icon matPrefix>search</mat-icon> <input matInput placeholder="Tìm kiếm sản phẩm..." />
+      </mat-form-field>
+    </div>
+    <!-- Icons -->
+    <div class="header-icons">
+      <ul class="header-icons-list">
+        <li>
+          <a routerLink="/store"><mat-icon>location_on</mat-icon> <span>Cửa hàng</span></a>
+        </li>
+        <li>
+          <a routerLink="/account"><mat-icon>person_outline</mat-icon> <span>Tài khoản</span></a>
+        </li>
+        <li>
+          <a routerLink="/favorites"><mat-icon>favorite_border</mat-icon> <span>Yêu thích</span></a>
+        </li>
+        <li>
+          <a routerLink="/cart"><mat-icon>shopping_cart</mat-icon> <span>Giỏ hàng</span></a>
+          <span *ngIf="cartItemCount > 0" class="cart-badge">{{ cartItemCount }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Navigation with Click Dropdown -->
+  <nav class="header-nav desktop-nav">
+    <div class="container">
+      <ul class="nav-list">
+        <li
+          class="dropdown"
+          [class.open]="openMenu === 'accessories'"
+          (click)="toggleMenu('accessories')"
+        >
+          <a href="javascript:void(0)"> Phụ kiện xe hơi <mat-icon>expand_more</mat-icon> </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Thảm lót sàn</a></li>
+            <li><a href="#">Bọc vô-lăng</a></li>
+            <li><a href="#">Ốp nội thất</a></li>
+            <li><a href="#">Phụ kiện điện tử</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" [class.open]="openMenu === 'camera'" (click)="toggleMenu('camera')">
+          <a href="javascript:void(0)"> Camera hành trình <mat-icon>expand_more</mat-icon> </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">VietMap</a></li>
+            <li><a href="#">70mai</a></li>
+            <li><a href="#">Xiaomi</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Bọc ghế da</a></li>
+        <li><a href="#">Màn hình DVD</a></li>
+        <li><a href="#">Dán phim cách nhiệt</a></li>
+        <li><a href="#">Phụ kiện chính hãng</a></li>
+        <li><a href="#" class="sale">Khuyến mãi</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Sidebar Menu -->
+<div class="custom-sidenav" [class.open]="isMobileMenuOpen">
+  <!-- Drawer -->
+  <div class="sidenav-content">
+    <!-- Header Section -->
+    <div class="sidenav-header">
+      <div class="sidenav-logo">
+        <span class="logo-main">SALE</span><span class="logo-accent">CAR</span>
+      </div>
+      <button class="close-btn" (click)="toggleMobileMenu()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <!-- User Section -->
+    <div class="sidenav-user">
+      <mat-icon>account_circle</mat-icon>
+      <div class="user-info">
+        <span class="username">Xin chào, Khách!</span>
+        <a routerLink="/login">Đăng nhập</a>
+      </div>
+    </div>
+
+    <!-- Menu Section -->
+    <ul class="mobile-nav-list">
+      <li *ngFor="let item of categories">
+        <div
+          class="mobile-dropdown"
+          (click)="toggleMenu(item.label)"
+          [class.open]="openMenu === item.label"
+        >
+          <div class="menu-label">
+            <mat-icon>{{ item.icon || 'arrow_right' }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </div>
+          <mat-icon class="expand-icon" *ngIf="item.children">expand_more</mat-icon>
+        </div>
+
+        <ul *ngIf="item.children && openMenu === item.label" class="mobile-submenu">
+          <li *ngFor="let sub of item.children">
+            <a [href]="sub.link">{{ sub.label }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Footer links -->
+    <div class="sidenav-footer">
+      <a href="/about">Về chúng tôi</a>
+      <a href="/contact">Liên hệ</a>
+      <a href="/policy">Chính sách</a>
+    </div>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="sidenav-backdrop" (click)="toggleMobileMenu()"></div>
+</div>
