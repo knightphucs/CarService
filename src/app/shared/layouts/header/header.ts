@@ -47,7 +47,7 @@ export class Header {
   cartItemCount = 0;
   isMobileMenuOpen = false;
 
-  // 🔹 Static navigation pages
+  // Static navigation pages
   navItems: MenuItem[] = [
     { label: 'Trang chủ', link: '/' },
     { label: 'Giới thiệu', link: '/gioi-thieu' },
@@ -58,7 +58,7 @@ export class Header {
     { label: 'Liên hệ', link: '/lien-he' },
   ];
 
-  // 🔹 Product categories with dropdowns
+  // Product categories with dropdowns
   categories: MenuItem[] = [
     {
       label: 'Phụ kiện – đồ chơi xe hơi',
@@ -101,12 +101,5 @@ export class Header {
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
     document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : 'auto';
-  }
-
-  navigateTo(link?: string): void {
-    if (link) {
-      console.log('Navigating to:', link);
-      // Use Angular Router navigation here later
-    }
   }
 }
