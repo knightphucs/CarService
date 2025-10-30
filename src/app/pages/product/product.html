@@ -1,0 +1,190 @@
+<!-- product.html -->
+<div class="product-page">
+  <div class="pw-container">
+    <aside class="pw-sidebar" [class.open]="sidebarOpen" aria-label="Bộ lọc sản phẩm">
+      <div class="title-row">
+        <h2>Bộ lọc</h2>
+        <button class="btn-ghost" (click)="clearFilters()">Xóa</button>
+      </div>
+
+      <div class="filter-group">
+        <label for="q">Tìm kiếm</label>
+        <input id="q" placeholder="Model, tên, mã..." [(ngModel)]="q" (input)="applyFilters()" />
+      </div>
+
+      <div class="filter-group">
+        <label>Giá (triệu VNĐ)</label>
+        <div class="price-row">
+          <input id="minPrice" type="number" [(ngModel)]="minPrice" />
+          <input id="maxPrice" type="number" [(ngModel)]="maxPrice" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Hãng</label>
+        <div class="checkbox-list">
+          <label *ngFor="let b of uniqueBrands">
+            <input type="checkbox" [checked]="selectedBrands.has(b)" (change)="onBrandChange(b, $event.target.checked)" />
+            {{ b }}
+          </label>
+          <div *ngIf="!uniqueBrands.length" class="small-muted">Không có hãng</div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Loại nhiên liệu</label>
+        <div class="checkbox-list">
+          <label *ngFor="let f of uniqueFuels">
+            <input type="checkbox" [checked]="selectedFuels.has(f)" (change)="onFuelChange(f, $event.target.checked)" />
+            {{ f }}
+          </label>
+          <div *ngIf="!uniqueFuels.length" class="small-muted">Không có dữ liệu nhiên liệu</div>
+        </div>
+      </div>
+
+      <!-- ===== MỚI: Kiểu dáng ===== -->
+  <div class="filter-group">
+    <label>Kiểu dáng</label>
+    <div class="checkbox-list">
+      <label *ngFor="let t of uniqueTypes">
+        <input type="checkbox" [checked]="selectedTypes.has(t)" (change)="onTypeChange(t, $event.target.checked)" />
+        {{ t }}
+      </label>
+      <div *ngIf="!uniqueTypes.length" class="small-muted">Không có kiểu dáng</div>
+    </div>
+  </div>
+
+  <!-- ===== MỚI: Hộp số ===== -->
+  <div class="filter-group">
+    <label>Hộp số</label>
+    <div class="checkbox-list">
+      <label *ngFor="let tr of uniqueTransmissions">
+        <input type="checkbox" [checked]="selectedTransmissions.has(tr)" (change)="onTransmissionChange(tr, $event.target.checked)" />
+        {{ tr }}
+      </label>
+      <div *ngIf="!uniqueTransmissions.length" class="small-muted">Không có dữ liệu hộp số</div>
+    </div>
+  </div>
+
+  <!-- ===== MỚI: Số chỗ ===== -->
+  <div class="filter-group">
+    <label>Số chỗ</label>
+    <div class="checkbox-list">
+      <label *ngFor="let s of uniqueSeats">
+        <input type="checkbox" [checked]="selectedSeats.has(s)" (change)="onSeatChange(s, $event.target.checked)" />
+        {{ s }} chỗ
+      </label>
+      <div *ngIf="!uniqueSeats.length" class="small-muted">Không có dữ liệu số chỗ</div>
+    </div>
+  </div>
+
+  <!-- ===== MỚI: Xuất xứ ===== -->
+  <div class="filter-group">
+    <label>Xuất xứ</label>
+    <div class="checkbox-list">
+      <label *ngFor="let o of uniqueOrigins">
+        <input type="checkbox" [checked]="selectedOrigins.has(o)" (change)="onOriginChange(o, $event.target.checked)" />
+        {{ o }}
+      </label>
+      <div *ngIf="!uniqueOrigins.length" class="small-muted">Không có dữ liệu xuất xứ</div>
+    </div>
+  </div>
+
+      <div class="filter-group">
+        <label>Động cơ (lít)</label>
+        <select id="engine" [(ngModel)]="engineSelect">
+          <option value="">Tất cả</option>
+          <option value="1.0">&le; 1.0</option>
+          <option value="1.5">&le; 1.5</option>
+          <option value="2.0">&le; 2.0</option>
+          <option value="3.0">&gt; 2.0</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="small-muted">Thêm</label>
+        <div class="checkbox-list">
+          <label><input type="checkbox" [(ngModel)]="onlyAvailable" (change)="applyFilters()" /> Chỉ hiển thị còn hàng</label>
+          <label><input type="checkbox" [(ngModel)]="hasPromo" (change)="applyFilters()" /> Có khuyến mãi</label>
+        </div>
+      </div>
+
+      <div class="pw-actions">
+        <button class="btn btn-primary" (click)="applyFilters()"><span>Áp dụng</span></button>
+        <button class="btn btn-ghost" (click)="showAll()">Hiện tất cả</button>
+      </div>
+    </aside>
+
+    <main class="pw-main">
+      <div class="mobile-toggle-row">
+        <button class="btn btn-ghost" (click)="openSidebar()">Bộ lọc</button>
+        <div style="flex:1"></div>
+        <div class="small-muted">Kéo để tìm hoặc dùng bộ lọc</div>
+      </div>
+
+      <div class="search-row">
+        <input id="searchTop" placeholder="Tìm xe theo tên hoặc mã..." [(ngModel)]="searchTop" (input)="applyFilters()" />
+        <select id="sort" class="sort-select" [(ngModel)]="sort" (change)="applyFilters()">
+          <option value="relevance">Phù hợp nhất</option>
+          <option value="price-asc">Giá: thấp → cao</option>
+          <option value="price-desc">Giá: cao → thấp</option>
+          <option value="engine-desc">Động cơ lớn → nhỏ</option>
+        </select>
+      </div>
+
+      <div class="results-header">
+        <div class="results-count">{{ filteredCars.length }} kết quả</div>
+        <div class="chips">
+          <div class="chip" *ngIf="q">Tìm: "{{ q }}"</div>
+          <div class="chip" *ngFor="let b of selectedBrands">{{ 'Hãng: ' + b }}</div>
+          <div class="chip" *ngFor="let f of selectedFuels">{{ 'Nhiên liệu: ' + f }}</div>
+          <div class="chip" *ngIf="minPrice || maxPrice">Giá: {{ minPrice || 0 }} - {{ maxPrice || '∞' }} triệu</div>
+        </div>
+      </div>
+
+      <div id="gridArea" class="grid" aria-live="polite">
+        <article class="card" *ngFor="let c of filteredCars">
+          <div class="media">
+            <img
+                [src]="c.image || 'assets/images/placeholder-car.png'"
+                [attr.srcset]="c.srcset ? c.srcset : null"
+                loading="lazy"
+                [alt]="c.name + ' — ' + c.brand"
+                (error)="onImgError($event)"
+            />
+            </div>
+          <div class="driver"></div>
+          <div class="body">
+            <div class="title">{{ c.name }}</div>
+            <div class="meta">
+                <div class="meta-col">
+                    <div><strong>Hãng:</strong> {{ c.brand }}</div>
+                    <div><strong>Động cơ:</strong> {{ c.engine }}L</div>
+                    <div><strong>Nhiên liệu:</strong> {{ c.fuel }}</div>
+                </div>
+                <div class="meta-col">
+                    <div><strong>Kiểu dáng:</strong> {{ c.type }}</div>
+                    <div><strong>Hộp số:</strong> {{ c.transmission }}</div>
+                    <div><strong>Số chỗ:</strong> {{ c.seats }} chỗ</div>
+                </div>
+            </div>
+            <div class="origin"><strong>Xuất xứ:</strong> {{ c.origin }}</div>
+            <div class="price">{{ c.price | number }} triệu</div>
+            <div class="actions">
+              <button class="btn btn-ghost" [routerLink]="['/product', c.id]" [state]="{ car: c }"><span>Chi tiết</span></button>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-ghost" (click)="addWishlist(c.id)">❤</button>
+                <button class="btn btn-primary" (click)="addCart(c.id)"><span>Đặt cọc</span></button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="!filteredCars.length" class="no-results">Không tìm thấy kết quả phù hợp.</div>
+    </main>
+  </div>
+
+  <!-- overlay for mobile -->
+  <div class="pw-overlay" [class.show]="sidebarOpen" (click)="closeSidebar()" aria-hidden="true"></div>
+</div>

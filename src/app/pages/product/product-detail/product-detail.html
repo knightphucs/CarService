@@ -1,0 +1,397 @@
+<div class="detail-product page container">
+  <div class="grid">
+    <!-- LEFT: gallery + description -->
+    <section class="left-col">
+      <div class="gallery">
+        <button class="nav prev" (click)="prev()" aria-label="Previous image">‹</button>
+
+        <div class="slide-wrap"
+             (touchstart)="onTouchStart($event)"
+             (touchend)="onTouchEnd($event)">
+          <img
+            class="slide-image"
+            [src]="images[currentIndex]"
+            [alt]="product.name + ' - image ' + (currentIndex + 1)"
+            loading="lazy"
+          />
+        </div>
+
+        <button class="nav next" (click)="next()" aria-label="Next image">›</button>
+      </div>
+
+      <div class="thumbnails">
+        <div class="thumb"
+             *ngFor="let img of images; let i = index"
+             (click)="goTo(i)"
+             [class.active]="i === currentIndex"
+             tabindex="0"
+             (keydown.enter)="goTo(i)"
+             role="button"
+             aria-pressed="{{ i === currentIndex }}">
+          <img [src]="img" [alt]="'Thumbnail ' + (i + 1)" />
+        </div>
+      </div>
+
+      <div class="details">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="short-meta">{{ product.brand }} • {{ product.year }} • {{ product.color }}</p>
+
+        <div class="price-and-actions">
+          <div class="price">{{ product.price | currency:'VND':'symbol':'1.0-0' }}</div>
+          <!-- Chọn màu xe -->
+          <div class="color-selector">
+            <span class="label">Màu xe:</span>
+
+            <button
+              class="color-btn white"
+              [class.active]="selectedColor === 'white'"
+              (click)="setColor('white')"
+              title="Trắng"
+            ></button>
+
+            <button
+              class="color-btn black"
+              [class.active]="selectedColor === 'black'"
+              (click)="setColor('black')"
+              title="Đen"
+            ></button>
+          </div>
+        </div>
+        <h3>Mô tả</h3>
+        <p class="description">{{ product.description }}</p>
+
+        <h3>Đặc điểm nổi bật</h3>
+        <ul class="highlights">
+          <li *ngFor="let h of product.highlights">{{ h }}</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RIGHT: sidepart -->
+    <aside class="right-col" aria-label="Thông số kỹ thuật">
+      <div class="spec-card">
+        <h3>Thông số kỹ thuật</h3>
+        <dl class="spec-list">
+          <div class="spec-item" *ngFor="let s of specList">
+            <dt>{{ s.label }}</dt>
+            <dd>{{ s.value }}</dd>
+          </div>
+        </dl>
+
+        <div class="spec-actions">
+          <button class="btn contact" (click)="onContact()">Liên hệ</button>
+          <button class="btn quote" (click)="onQuote()">Báo giá lăn bánh</button>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <p><strong>Hotline:</strong> {{ dealership.phone }}</p>
+        <p><strong>Địa chỉ:</strong> {{ dealership.address }}</p>
+        <button class="btn map" (click)="openMap()">Xem bản đồ</button>
+      </div>
+    </aside>
+  </div>
+</div>
+<!-- ====== QUOTE BLOCK (đặt dưới cùng, độc lập) ====== -->
+<section class="quote-block full-width-quote">
+  <div class="inner">
+    <!-- Tabs -->
+    <div class="quote-tabs" role="tablist" aria-label="Tabs">
+      <button
+        role="tab"
+        [attr.aria-selected]="activeTab === 'quote'"
+        (click)="setActiveTab('quote')"
+        class="tab"
+        [class.active]="activeTab === 'quote'">
+        BÁO GIÁ LĂN BÁNH
+      </button>
+
+      <button
+        role="tab"
+        [attr.aria-selected]="activeTab === 'process'"
+        (click)="setActiveTab('process')"
+        class="tab"
+        [class.active]="activeTab === 'process'">
+        QUY TRÌNH MUA XE
+      </button>
+
+      <button
+        role="tab"
+        [attr.aria-selected]="activeTab === 'policy'"
+        (click)="setActiveTab('policy')"
+        class="tab"
+        [class.active]="activeTab === 'policy'">
+        CHÍNH SÁCH MUA XE
+      </button>
+    </div>
+
+    <!-- Title (shared) -->
+    <div class="quote-title">
+      <h2 *ngIf="activeTab === 'quote'">Báo giá lăn bánh xe tại {{ dealershipTitle }}</h2>
+      <h2 *ngIf="activeTab === 'process'">Quy trình mua xe tại {{ dealershipTitle }}</h2>
+      <h2 *ngIf="activeTab === 'policy'">Chính sách mua xe</h2>
+
+      <p class="subtitle" *ngIf="activeTab === 'quote'">Tham khảo giá niêm yết và lăn bánh tạm tính cập nhật {{ priceUpdatedAt }}</p>
+      <p class="subtitle" *ngIf="activeTab === 'process'">Các bước chính khi mua xe và hoàn tất thủ tục.</p>
+      <p class="subtitle" *ngIf="activeTab === 'policy'">Thông tin chính sách bảo hành, khuyến mãi và điều khoản mua bán.</p>
+    </div>
+
+    <!-- ===== TAB: BÁO GIÁ ===== -->
+    <div *ngIf="activeTab === 'quote'">
+      <!-- Form selects + action -->
+      <div class="quote-form">
+        <div class="form-row">
+          <label>Chọn phiên bản</label>
+          <select [(ngModel)]="selectedVersion">
+            <option *ngFor="let v of versions" [value]="v.value">{{ v.label }}</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Chọn màu sắc</label>
+          <select [(ngModel)]="selectedColorForQuote">
+            <option *ngFor="let c of colors" [value]="c.value">{{ c.label }}</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Chọn tỉnh, thành phố</label>
+          <select [(ngModel)]="selectedProvince" (ngModelChange)="onProvinceChange($event)">
+            <option *ngFor="let p of provinces" [value]="p.value">{{ p.label }}</option>
+          </select>
+        </div>
+
+
+        <div class="form-row">
+          <label>Chọn bảo hiểm thân xe</label>
+          <select [(ngModel)]="selectedInsurance">
+            <option *ngFor="let ins of insurances" [value]="ins.value">{{ ins.label }}</option>
+          </select>
+        </div>
+
+        <div class="form-action">
+          <button class="btn outline" (click)="calculateQuote()">XEM GIÁ LĂN BÁNH</button>
+        </div>
+      </div>
+
+      <!-- Result: image always, details conditional -->
+      <div class="quote-result">
+        <div class="quote-left">
+          <img [src]="selectedImageForQuote" alt="car" class="quote-car" />
+        </div>
+
+        <div class="quote-right">
+          <ng-container *ngIf="totalPrice > 0; else notCalculated">
+            <ul class="quote-lines">
+              <li><span>Giá niêm yết:</span> <strong>{{ basePrice | currency:'VND':'symbol':'1.0-0' }}</strong></li>
+              <li><span>Bảo hiểm thân xe:</span> <span>{{ insurancePrice | currency:'VND':'symbol':'1.0-0' }}</span></li>
+              <li><span>Thuế trước bạ ({{ taxRate * 100 | number:'1.0-0' }}%):</span> <span>{{ taxAmount | currency:'VND':'symbol':'1.0-0' }}</span></li>
+              <!-- PHÍ CẤP BIỂN SỐ -->
+              <li class="line-with-select">
+                <span>Phí cấp biển số:</span>
+
+                <span class="select-wrap">
+                  <select [(ngModel)]="selectedPlateOption" (ngModelChange)="onPlateChange($event)">
+                    <option *ngFor="let opt of plateOptions" [ngValue]="opt">{{ opt.label }}</option>
+                  </select>
+
+                  <ng-container *ngIf="selectedPlateOption?.key === 'huyen'">
+                    <select [(ngModel)]="selectedDistrict" (ngModelChange)="onDistrictChange($event)">
+                      <option *ngFor="let d of districtOptions" [ngValue]="d">{{ d.label }}</option>
+                    </select>
+                  </ng-container>
+                </span>
+              </li>
+              <li><span>Phí đăng kiểm:</span> <span>{{ registrationFee | currency:'VND':'symbol':'1.0-0' }}</span></li>
+              <li><span>Bảo hiểm dân sự bắt buộc:</span> <span>{{ civilInsurance | currency:'VND':'symbol':'1.0-0' }}</span></li>
+              <!-- PHÍ BẢO TRÌ ĐƯỜNG BỘ -->
+              <li class="line-with-select">
+                <span>Phí bảo trì đường bộ:</span>
+                <span class="select-wrap">
+                  <select [(ngModel)]="selectedRoadOption" (ngModelChange)="onRoadChange($event)">
+                    <option *ngFor="let r of roadOptions" [ngValue]="r">{{ r.label }}</option>
+                  </select>
+                </span>
+              </li>
+            </ul>
+            <div class="quote-total">
+              <div class="label">Tổng giá xe lăn bánh:</div>
+              <div class="total">{{ totalPrice | currency:'VND':'symbol':'1.0-0' }}</div>
+              <div class="note">Liên hệ để được hỗ trợ • Hotline: {{ dealership.phone }}</div>
+            </div>
+
+            <div class="quote-actions">
+              <button class="btn primary" (click)="openFinance()">Tư vấn trả góp</button>
+              <button class="btn ghost" (click)="downloadQuote()">Tải báo giá</button>
+            </div>
+          </ng-container>
+
+          <ng-template #notCalculated>
+            <div class="quote-placeholder">
+              <p>Chọn phiên bản, màu sắc, tỉnh và bấm <strong>XEM GIÁ LĂN BÁNH</strong> để xem chi tiết.</p>
+              <div class="quote-actions" style="margin-top:12px;">
+                <button class="btn primary" (click)="openFinance()">Tư vấn trả góp</button>
+                <button class="btn ghost" (click)="downloadQuote()">Tải báo giá</button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: QUY TRÌNH MUA XE ===== -->
+    <div *ngIf="activeTab === 'process'" class="process-content">
+      <div class="process-title-wrap">
+        <h2 class="process-title">Quy trình mua xe tại {{ dealershipTitle }}</h2>
+        <p class="process-sub">Các bước thực hiện khi mua xe và hoàn tất thủ tục.</p>
+      </div>
+
+      <div class="step">
+        <h3>Bước 1: Nộp thuế trước bạ cho xe</h3>
+        <p>
+          Mức phí trước bạ sẽ theo biểu thuế của Tổng cục thuế quyết định; mức nộp thực tế phụ thuộc vào địa phương.
+          Tại khu vực 1 mức thuế trước bạ thường là 12%, khu vực 2 là 10%. Khách hàng cần đến cơ quan thuế nơi đăng ký hộ khẩu để kê khai và nộp thuế trước bạ.
+        </p>
+      </div>
+
+      <div class="step">
+        <h3>Bước 2: Đăng ký cấp biển số xe</h3>
+        <p>
+          Mức phí cấp biển số đăng ký mới: khu vực 1 (Hà Nội, TP.HCM) có thể lên tới ~20 triệu; khu vực khác dao động từ 200K - 2 triệu tùy nơi.
+          Thông thường tỉnh/thành sẽ có mức cấp biển khác nhau theo quy định.
+        </p>
+      </div>
+
+      <div class="step">
+        <h3>Bước 3: Đăng kiểm và nộp phí lưu hành đường bộ</h3>
+        <p>
+          Phí đăng kiểm khoảng 340K; phí bảo trì/lưu hành đường bộ tùy vào đối tượng đăng ký (ví dụ doanh nghiệp hoặc cá nhân).
+          Thời hạn đóng lần đầu có thể lên tới 30 tháng.
+        </p>
+      </div>
+
+      <div class="process-footer">
+        <p class="muted">Liên hệ với chúng tôi để được hỗ trợ</p>
+        <p class="hotline">Hotline hỗ trợ: <strong>{{ dealership.phone }}</strong></p>
+      </div>
+    </div>
+
+    <!-- ===== TAB: CHÍNH SÁCH MUA XE ===== -->
+    <div *ngIf="activeTab === 'policy'" class="policy-content">
+      <h3>Chính sách mua xe</h3>
+      <p>Thông tin về bảo hành, khuyến mãi, điều khoản và các chính sách kèm theo. Bạn có thể tùy chỉnh nội dung này theo thực tế.</p>
+    </div>
+  </div>
+</section>
+<!-- ====== END QUOTE BLOCK ====== -->
+<!-- ========= SECTION: BỘ SƯU TẬP ========= -->
+<section class="collection-section"
+         (mouseenter)="onCollectionEnter()"
+         (mouseleave)="onCollectionLeave()">
+  <div class="collection-container">
+    <h2 class="collection-title">{{ collectionTitle }}</h2>
+
+    <div class="collection-carousel">
+      <button class="col-nav col-prev" aria-label="Ảnh trước" (click)="colPrev()">&#8249;</button>
+
+      <div class="col-viewport">
+        <img class="col-slide"
+             [src]="collectionImages[collectionIndex]"
+             alt="collection image" loading="lazy" />
+      </div>
+
+      <button class="col-nav col-next" aria-label="Ảnh sau" (click)="colNext()">&#8250;</button>
+    </div>
+
+    <div class="col-thumbs">
+      <button class="col-thumb"
+              *ngFor="let img of collectionImages; let i = index"
+              [class.active]="i === collectionIndex"
+              (click)="colGo(i)">
+        <img [src]="img" alt="thumb {{ i + 1 }}" loading="lazy" />
+      </button>
+    </div>
+
+    <div class="col-cta">
+      <button class="btn-col-ghost" (click)="downloadCatalogue()">Tải catalogue</button>
+    </div>
+  </div>
+</section>
+<!-- ======== END SECTION: BỘ SƯU TẬP ======== -->
+<!-- ===== DETAIL TABS (Ngoại thất / Nội thất / ...) ===== -->
+<section class="detail-tabs">
+  <div class="tabs-bar" role="tablist" aria-label="Product detail tabs">
+    <button
+      *ngFor="let t of tabs"
+      role="tab"
+      [attr.aria-selected]="activeDetailTab === t.key"
+      (click)="setDetailTab(t.key)"
+      [class.active]="activeDetailTab === t.key"
+      class="tab-btn">
+      {{ t.label }}
+    </button>
+  </div>
+
+  <div class="tabs-content">
+    <!-- Render content grid cho active tab -->
+    <ng-container *ngIf="detailContent[activeDetailTab] as items">
+      <div class="detail-grid">
+        <!-- item[0] lớn -->
+        <div class="big-card" *ngIf="items[0]">
+          <img [src]="items[0].image" alt="{{items[0].title}}" />
+          <div class="card-body">
+            <h3>{{ items[0].title }}</h3>
+            <p>{{ items[0].desc }}</p>
+          </div>
+        </div>
+
+        <!-- 2 nhỏ bên phải trên mobile sẽ sắp dưới big-card -->
+        <div class="small-cards">
+          <div class="small" *ngFor="let it of items.slice(1)">
+            <img [src]="it.image" alt="{{it.title}}" />
+            <div class="card-body">
+              <h4>{{ it.title }}</h4>
+              <p>{{ it.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>
+<!-- ===== END DETAIL TABS ===== -->
+<!-- ===== START DETAIL ACCESSORIES ===== -->
+<!-- SECTION: PHỤ KIỆN (Slider + Tabs) -->
+<section class="accessories">
+  <h2 class="title">PHỤ KIỆN</h2>
+
+  <!-- Tabs -->
+  <div class="tabs" role="tablist">
+    <button
+      *ngFor="let t of accessoryTabs"
+      (click)="setAccessoryTab(t.key)"
+      [class.active]="activeAccessoryTab === t.key"
+      class="tab">
+      {{ t.label }}
+    </button>
+  </div>
+
+  <!-- Slider -->
+  <div class="slider-wrapper">
+    <button class="nav prev" (click)="slideLeft()">&#10094;</button>
+
+    <div class="slider" #slider>
+      <div class="item" *ngFor="let a of filteredAccessories">
+        <img [src]="a.image" [alt]="a.title" />
+        <div class="info">
+          <h3>{{ a.title }}</h3>
+          <p class="price">Giá: <strong>{{ a.price | currency:'VND':'symbol':'1.0-0' }}</strong></p>
+          <p class="note">{{ a.desc }}</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="nav next" (click)="slideRight()">&#10095;</button>
+  </div>
+</section>
+<!-- ===== END DETAIL ACCESSORIES ===== -->
