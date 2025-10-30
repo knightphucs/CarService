@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,8 +22,10 @@ interface MenuItem {
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
@@ -33,17 +36,18 @@ interface MenuItem {
     MatInputModule,
     MatFormFieldModule,
     MatExpansionModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-
 export class Header {
+  openMenu: string | null = null;
   searchQuery = '';
   cartItemCount = 0;
   isMobileMenuOpen = false;
 
+  // 🔹 Static navigation pages
   navItems: MenuItem[] = [
     { label: 'Trang chủ', link: '/' },
     { label: 'Giới thiệu', link: '/gioi-thieu' },
@@ -51,9 +55,10 @@ export class Header {
     { label: 'Tin tức', link: '/tin-tuc' },
     { label: 'Video', link: '/video' },
     { label: 'Tuyển dụng', link: '/tuyen-dung' },
-    { label: 'Liên hệ', link: '/lien-he' }
+    { label: 'Liên hệ', link: '/lien-he' },
   ];
 
+  // 🔹 Product categories with dropdowns
   categories: MenuItem[] = [
     {
       label: 'Phụ kiện – đồ chơi xe hơi',
@@ -65,8 +70,8 @@ export class Header {
         { label: 'Đồ chơi xe EcoSport', link: '#' },
         { label: 'Đồ chơi xe Honda CRV', link: '#' },
         { label: 'Đồ chơi xe Honda City', link: '#' },
-        { label: 'Đồ chơi xe Honda Fortune 2017', link: '#' }
-      ]
+        { label: 'Đồ chơi xe Honda Fortune 2017', link: '#' },
+      ],
     },
     { label: 'Bọc ghế da ô tô', icon: 'event_seat', link: '#' },
     { label: 'Camera hành trình', icon: 'videocam', link: '#' },
@@ -74,12 +79,23 @@ export class Header {
     { label: 'Dán phim cách nhiệt', icon: 'wb_sunny', link: '#' },
     { label: 'Màn hình DVD', icon: 'tv', link: '#' },
     { label: 'Nắp thùng bán tải', icon: 'inventory_2', link: '#' },
-    { label: 'Phụ kiện chính hãng', icon: 'verified', link: '#' }
+    { label: 'Phụ kiện chính hãng', icon: 'verified', link: '#' },
   ];
+
+  toggleMenu(menu: string) {
+    this.openMenu = this.openMenu === menu ? null : menu;
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown')) {
+      this.openMenu = null;
+    }
+  }
 
   onSearch(): void {
     console.log('Searching for:', this.searchQuery);
-    // Implement search logic
   }
 
   toggleMobileMenu(): void {
@@ -89,7 +105,7 @@ export class Header {
   navigateTo(link?: string): void {
     if (link) {
       console.log('Navigating to:', link);
-      // Implement navigation using Router
+      // Use Angular Router navigation here later
     }
   }
 }

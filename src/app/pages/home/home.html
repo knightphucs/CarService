@@ -1,1 +1,242 @@
-<p>home works!</p>
+<div class="home-page">
+  <!-- Hero Slider -->
+  <section class="hero-slider">
+    <div class="slider-container">
+      <div
+        *ngFor="let slide of heroSlides; let i = index"
+        class="slide"
+        [class.active]="i === currentSlide"
+      >
+        <img [src]="slide.image" [alt]="slide.title" class="slide-bg" />
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <h1 class="slide-title">{{ slide.title }}</h1>
+          <p class="slide-subtitle">{{ slide.subtitle }}</p>
+          <div class="slide-actions">
+            <button mat-raised-button color="primary" class="btn-primary">Xem sản phẩm</button>
+            <button mat-stroked-button class="btn-outline">
+              <mat-icon>phone</mat-icon>
+              Liên hệ: 1900 xxxx
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-indicators">
+        <button
+          *ngFor="let slide of heroSlides; let i = index"
+          (click)="setSlide(i)"
+          [class.active]="i === currentSlide"
+          class="indicator"
+        ></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div *ngFor="let stat of stats" class="stat-card">
+          <div class="stat-icon-wrapper" [style.background-color]="stat.color">
+            <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
+          </div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Danh mục sản phẩm</h2>
+        <p class="section-subtitle">Khám phá các sản phẩm phụ kiện chính hãng</p>
+      </div>
+
+      <div class="categories-grid">
+        <div *ngFor="let category of categories" class="category-card">
+          <img [src]="category.image" [alt]="category.name" class="category-image" />
+          <div class="category-overlay">
+            <h3 class="category-name">{{ category.name }}</h3>
+            <p class="category-count">{{ category.count }} sản phẩm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Sản phẩm nổi bật</h2>
+        <p class="section-subtitle">Những sản phẩm được yêu thích nhất</p>
+      </div>
+
+      <div class="products-grid">
+        <div *ngFor="let product of products" class="product-card">
+          <div class="product-image-wrapper">
+            <img [src]="product.image" [alt]="product.name" class="product-image" />
+            <span class="product-badge" [ngClass]="product.badgeClass">{{ product.badge }}</span>
+            <button mat-icon-button class="favorite-btn">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+          </div>
+          <div class="product-content">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <div class="product-footer">
+              <span class="product-price">{{ product.price | number : '1.0-0' }}₫</span>
+              <button mat-mini-fab color="primary" class="add-to-cart-btn">
+                <mat-icon>shopping_cart</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <button mat-stroked-button class="btn-view-all">Xem tất cả sản phẩm</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Dịch vụ của chúng tôi</h2>
+        <p class="section-subtitle">Cam kết mang đến trải nghiệm tốt nhất</p>
+      </div>
+
+      <div class="services-grid">
+        <div *ngFor="let service of services" class="service-card">
+          <mat-icon class="service-icon">{{ service.icon }}</mat-icon>
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-desc">{{ service.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News -->
+  <section class="news-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Tin tức & Kinh nghiệm</h2>
+        <p class="section-subtitle">Cập nhật thông tin mới nhất về ô tô</p>
+      </div>
+
+      <div class="news-grid">
+        <div *ngFor="let item of news" class="news-card">
+          <img [src]="item.image" [alt]="item.title" class="news-image" />
+          <div class="news-content">
+            <div class="news-meta">
+              <span class="news-category">{{ item.category }}</span>
+              <span class="news-date">{{ item.date }}</span>
+            </div>
+            <h3 class="news-title">{{ item.title }}</h3>
+            <button mat-button color="primary" class="news-link">
+              Đọc thêm <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Khách hàng nói gì về chúng tôi</h2>
+        <p class="section-subtitle">Những đánh giá chân thực từ khách hàng</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div *ngFor="let testimonial of testimonials" class="testimonial-card">
+          <div class="testimonial-header">
+            <img [src]="testimonial.avatar" [alt]="testimonial.name" class="testimonial-avatar" />
+            <div class="testimonial-info">
+              <div class="testimonial-name">{{ testimonial.name }}</div>
+              <div class="testimonial-location">{{ testimonial.location }}</div>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <mat-icon *ngFor="let star of getStarArray(testimonial.rating)" class="star-icon"
+              >star</mat-icon
+            >
+          </div>
+          <p class="testimonial-comment">{{ testimonial.comment }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About & CTA -->
+  <section class="about-cta-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <h2 class="about-title">Về SALECAR</h2>
+          <p class="about-text">
+            SALECAR là nền tảng mua bán phụ kiện ô tô trực tuyến uy tín hàng đầu Việt Nam với hơn 5
+            năm kinh nghiệm. Chúng tôi kết nối khách hàng với hơn 50 đại lý và showroom uy tín trên
+            toàn quốc.
+          </p>
+          <p class="about-text">
+            Với đội ngũ chuyên gia tư vấn nhiệt tình và quy trình mua sắm minh bạch, an toàn,
+            SALECAR cam kết mang đến cho bạn trải nghiệm tuyệt vời nhất.
+          </p>
+          <div class="about-contacts">
+            <div class="contact-item">
+              <mat-icon>phone</mat-icon>
+              <span>1900 xxxx (Miễn phí)</span>
+            </div>
+            <div class="contact-item">
+              <mat-icon>email</mat-icon>
+              <span>support@salecar.vn</span>
+            </div>
+            <div class="contact-item">
+              <mat-icon>location_on</mat-icon>
+              <span>Hà Nội & TP.HCM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-stats">
+          <div class="mini-stat">
+            <div class="mini-stat-value">15K+</div>
+            <div class="mini-stat-label">Khách hàng tin tưởng</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-value">2.5K+</div>
+            <div class="mini-stat-label">Sản phẩm chất lượng</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-value">50+</div>
+            <div class="mini-stat-label">Đối tác uy tín</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-value">4.8★</div>
+            <div class="mini-stat-label">Đánh giá trung bình</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-content">
+        <h2 class="cta-title">Sẵn sàng nâng cấp xế yêu?</h2>
+        <p class="cta-subtitle">Liên hệ ngay với chúng tôi để được tư vấn miễn phí</p>
+        <div class="cta-actions">
+          <button mat-raised-button class="btn-cta-primary">
+            <mat-icon>phone</mat-icon>
+            Gọi ngay 1900 xxxx
+          </button>
+          <button mat-stroked-button class="btn-cta-outline">Đăng ký tư vấn miễn phí</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

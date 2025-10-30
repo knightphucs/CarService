@@ -1,194 +1,167 @@
 .footer-container {
-  background-color: #111;
+  background-color: #0c0c0c;
   color: #fff;
   font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
+  /* --- Subscribe Bar --- */
   .subscribe-bar {
-    background: #1a1a1a;
-    padding: 2rem 1rem;
+    width: 100%;
+    background: #111;
+    padding: 1.75rem 1rem;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-bottom: 1px solid #222;
 
     .subscribe-title {
-      color: #fff;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
       margin-bottom: 1rem;
     }
 
     .subscribe-inputs {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 0.75rem;
 
       .subscribe-input {
-        width: 240px;
+        width: 230px;
         height: 36px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        background: #2a2a2a;
+        background: #1f1f1f;
+        border: 1px solid #333;
         color: #fff;
-        font-size: 0.9rem;
+        border-radius: 6px;
         padding: 0 0.75rem;
+        font-size: 0.9rem;
         outline: none;
-        transition: all 0.25s ease;
 
         &::placeholder {
           color: #aaa;
         }
 
-        &:hover {
-          border-color: rgba(255, 255, 255, 0.35);
-        }
-
         &:focus {
-          border-color: #42a5f5;
-          box-shadow: 0 0 6px rgba(66, 165, 245, 0.4);
+          border-color: #1976d2;
         }
       }
 
       .subscribe-btn {
-        height: 36px;
-        padding: 0 1.5rem;
+        background: #e53935;
         border: none;
         border-radius: 18px;
-        background: linear-gradient(90deg, #1976d2, #42a5f5);
         color: #fff;
         font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.85rem;
+        padding: 0 1.25rem;
+        height: 36px;
         cursor: pointer;
-        transition: all 0.25s ease;
+        transition: all 0.25s;
 
         &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 3px 8px rgba(25, 118, 210, 0.4);
-        }
-
-        &:active {
-          transform: scale(0.97);
-        }
-      }
-    }
-
-    @media (max-width: 768px) {
-      .subscribe-inputs {
-        flex-direction: column;
-        width: 100%;
-
-        .subscribe-input,
-        .subscribe-btn {
-          width: 90%;
-          max-width: 300px;
+          background: #2196f3;
         }
       }
     }
   }
 
-  /* --- Red Navigation Bar --- */
-  .red-bar {
+  /* --- Blue Navigation Bar --- */
+  .blue-bar {
+    width: 100%;
+    background: #e53935;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    background-color: #1976d2;
-    padding: 1rem 2rem;
     flex-wrap: wrap;
+    padding: 1rem 0;
+    gap: 2rem;
 
     .footer-logo img {
-      height: 50px;
+      height: 40px;
     }
 
     .nav-links {
       display: flex;
-      gap: 1rem;
       flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
 
       a {
         color: #fff;
         font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
 
-  /* --- Main Footer --- */
+  /* --- Footer Content --- */
   .footer-content {
+    width: 100%;
+    max-width: 1200px;
+    background: #111;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    background-color: #1b1b1b;
-    padding: 2.5rem 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    padding: 2.5rem 2rem;
     gap: 2rem;
 
     .footer-column {
       h3 {
         font-size: 1rem;
-        margin-bottom: 0.75rem;
+        font-weight: 600;
         color: #fff;
-        font-weight: bold;
+        margin-bottom: 0.75rem;
       }
 
       ul {
         list-style: none;
         padding: 0;
-        margin: 0;
 
         li {
-          margin: 0.5rem 0;
+          margin: 0.4rem 0;
           font-size: 0.9rem;
           color: #ccc;
           transition: color 0.2s;
 
           &:hover {
             color: #fff;
+            cursor: pointer;
           }
         }
-      }
-    }
 
-    .contact {
-      p {
-        display: flex;
-        align-items: center;
-        margin: 0.4rem 0;
+        .social-icons {
+          width: 100%;
+          margin-top: 1rem;
+          display: flex;
+          gap: 0.5rem;
 
-        mat-icon {
-          font-size: 18px;
-          margin-right: 0.5rem;
-        }
-      }
-
-      .social-icons {
-        margin-top: 1rem;
-
-        button {
-          color: #fff;
-          background: #333;
-          border-radius: 50%;
+          button {
+            color: #fff;
+            background: #222;
+            border-radius: 50%;
+          }
         }
       }
     }
   }
 
-  /* --- Bottom Section --- */
+  /* --- Footer Bottom --- */
   .footer-bottom {
-    background-color: #0d0d0d;
-    border-top: 1px solid #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 1.5rem 2rem;
+    width: 100%;
+    background: #0a0a0a;
+    border-top: 1px solid #222;
+    text-align: center;
+    padding: 1.5rem 1rem;
     font-size: 0.85rem;
 
     .footer-info {
       line-height: 1.6;
       color: #ccc;
+      margin-bottom: 1rem;
 
       strong {
         color: #fff;
@@ -197,32 +170,27 @@
 
     .payment-icons {
       display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 0.75rem;
 
       img {
-        height: 28px;
+        height: 26px;
         filter: brightness(0.9);
       }
     }
   }
-}
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  .footer-container {
-    .red-bar {
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .blue-bar {
       flex-direction: column;
-      text-align: center;
-    }
-
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
       gap: 1rem;
     }
 
     .footer-content {
-      text-align: center;
+      padding: 2rem 1rem;
     }
   }
 }
