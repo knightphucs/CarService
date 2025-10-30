@@ -1,0 +1,93 @@
+<div class="contact-page container">
+  <header class="contact-hero" role="banner">
+    <h1>Liên hệ với CarService</h1>
+    <p class="lead">Bạn có câu hỏi? Hãy gửi cho chúng tôi — chúng tôi sẽ phản hồi trong 24 giờ.</p>
+  </header>
+
+  <section class="contact-grid">
+    <article class="contact-form-card" aria-labelledby="contact-form-title">
+      <h2 id="contact-form-title">Gửi tin nhắn</h2>
+
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <div class="row">
+          <label class="field">
+            <span>Tên</span>
+            <input name="name" ngModel required minlength="2" #name="ngModel" placeholder="Họ và tên" />
+            <small class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+              Vui lòng nhập tên hợp lệ (ít nhất 2 ký tự).
+            </small>
+          </label>
+
+          <label class="field">
+            <span>Số điện thoại</span>
+            <input name="phone" ngModel pattern="^[0-9+()\\-\\s]{7,20}$" #phone="ngModel" placeholder="0123 456 789" id="phone" />
+            <small class="error" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+              Số điện thoại không hợp lệ.
+            </small>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Email</span>
+          <input name="email" ngModel required email #email="ngModel" placeholder="you@example.com" />
+          <small class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+            Vui lòng nhập email hợp lệ.
+          </small>
+        </label>
+
+        <label class="field">
+          <span>Nội dung</span>
+          <textarea name="message" ngModel required minlength="6" #message="ngModel" rows="6" placeholder="Mô tả yêu cầu hoặc câu hỏi của bạn"></textarea>
+          <small class="error" *ngIf="message.invalid && (message.dirty || message.touched)">
+            Nhập ít nhất 6 ký tự.
+          </small>
+        </label>
+
+        <div class="actions">
+          <button type="submit" [disabled]="f.invalid || sending" class="btn-primary">
+            <span *ngIf="!sending">Gửi tin nhắn</span>
+            <span *ngIf="sending">Đang gửi…</span>
+          </button>
+          <button type="button" class="btn-ghost" (click)="f.resetForm()">Xóa</button>
+        </div>
+
+        <p class="status success" *ngIf="successMessage">{{ successMessage }}</p>
+        <p class="status error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      </form>
+    </article>
+
+    <aside class="contact-info" aria-labelledby="contact-info-title">
+      <h2 id="contact-info-title">Thông tin liên hệ</h2>
+
+      <div class="info-block">
+        <h3>Địa chỉ</h3>
+        <p>123 Đường Lái Xe, Quận A, Thành phố</p>
+      </div>
+
+      <div class="info-block">
+        <h3>Hotline</h3>
+        <p><a href="tel:+84123456789">+84 123 456 789</a></p>
+      </div>
+
+      <div class="info-block">
+        <h3>Email</h3>
+        <p><a href="mailto:support@carservice.vn">support@carservice.vn</a></p>
+      </div>
+
+      <div class="info-block">
+        <h3>Giờ làm việc</h3>
+        <p>Thứ 2 — Thứ 7: 08:00 — 18:00</p>
+      </div>
+
+      <div class="socials">
+        <a href="#" aria-label="Facebook">Facebook</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="Zalo">Zalo</a>
+      </div>
+    </aside>
+  </section>
+  <div class="map-placeholder" role="img" aria-label="Bản đồ vị trí đại diện">
+        <!-- Bạn có thể thay bằng iframe Google Maps hoặc component Map -->
+         <iframe id="map-box" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.539040446652!2d106.67628691089726!3d10.84654485785128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175284d0ea03727%3A0x1975f492d40e65c9!2zR1lNIFBoxrDGoW5nIEzGsHU!5e0!3m2!1svi!2s!4v1761755203728!5m2!1svi!2s" width="1900" height="450" style="border:0;margin-bottom: 10px; margin-top: -15px !important; border-radius: 10px; margin-left: 50px; box-shadow: 0 8px 24px rgba(2,6,23,0.3); border: 1px solid #ddd;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+</div>
