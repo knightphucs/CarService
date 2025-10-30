@@ -100,6 +100,7 @@ export class Header {
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : 'auto';
   }
 
   navigateTo(link?: string): void {

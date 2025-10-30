@@ -83,32 +83,62 @@
       </ul>
     </div>
   </nav>
+</header>
 
-  <!-- Mobile Sidebar Menu -->
-  <mat-sidenav-container class="mobile-sidenav-container" *ngIf="isMobileMenuOpen">
-    <mat-sidenav mode="over" opened (backdropClick)="toggleMobileMenu()" class="mobile-sidenav">
-      <button mat-icon-button (click)="toggleMobileMenu()" class="close-btn">
+<!-- Mobile Sidebar Menu -->
+<div class="custom-sidenav" [class.open]="isMobileMenuOpen">
+  <!-- Drawer -->
+  <div class="sidenav-content">
+    <!-- Header Section -->
+    <div class="sidenav-header">
+      <div class="sidenav-logo">
+        <span class="logo-main">SALE</span><span class="logo-accent">CAR</span>
+      </div>
+      <button class="close-btn" (click)="toggleMobileMenu()">
         <mat-icon>close</mat-icon>
       </button>
+    </div>
 
-      <ul class="mobile-nav-list">
-        <li *ngFor="let item of categories">
-          <div
-            class="mobile-dropdown"
-            (click)="toggleMenu(item.label)"
-            [class.open]="openMenu === item.label"
-          >
+    <!-- User Section -->
+    <div class="sidenav-user">
+      <mat-icon>account_circle</mat-icon>
+      <div class="user-info">
+        <span class="username">Xin chào, Khách!</span>
+        <a routerLink="/login">Đăng nhập</a>
+      </div>
+    </div>
+
+    <!-- Menu Section -->
+    <ul class="mobile-nav-list">
+      <li *ngFor="let item of categories">
+        <div
+          class="mobile-dropdown"
+          (click)="toggleMenu(item.label)"
+          [class.open]="openMenu === item.label"
+        >
+          <div class="menu-label">
+            <mat-icon>{{ item.icon || 'arrow_right' }}</mat-icon>
             <span>{{ item.label }}</span>
-            <mat-icon *ngIf="item.children">expand_more</mat-icon>
           </div>
+          <mat-icon class="expand-icon" *ngIf="item.children">expand_more</mat-icon>
+        </div>
 
-          <ul *ngIf="item.children && openMenu === item.label" class="mobile-submenu">
-            <li *ngFor="let sub of item.children">
-              <a [href]="sub.link">{{ sub.label }}</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </mat-sidenav>
-  </mat-sidenav-container>
-</header>
+        <ul *ngIf="item.children && openMenu === item.label" class="mobile-submenu">
+          <li *ngFor="let sub of item.children">
+            <a [href]="sub.link">{{ sub.label }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Footer links -->
+    <div class="sidenav-footer">
+      <a href="/about">Về chúng tôi</a>
+      <a href="/contact">Liên hệ</a>
+      <a href="/policy">Chính sách</a>
+    </div>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="sidenav-backdrop" (click)="toggleMobileMenu()"></div>
+</div>
