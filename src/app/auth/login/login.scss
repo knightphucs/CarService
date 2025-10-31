@@ -26,7 +26,7 @@ $border: #e0e0e0;
     border-radius: 1rem;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     width: 100%;
-    max-width: 24rem;
+    max-width: 30rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -116,6 +116,12 @@ $border: #e0e0e0;
         align-items: center;
         gap: 0.5rem;
 
+        p-checkbox {
+          .p-checkbox-box {
+            background-color: #fff !important;
+          }
+        }
+
         label {
           color: var(--surface-900, #111827);
           font-size: 0.95rem;
@@ -175,7 +181,6 @@ $border: #e0e0e0;
       fill: var(--surface-200, #e5e7eb);
     }
 
-    .welcome-text h2,
     .input-group label,
     .remember label {
       color: var(--surface-0, #f9fafb);

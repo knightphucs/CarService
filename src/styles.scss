@@ -8,17 +8,22 @@
 html {
   @include mat.theme(
     (
-      color: mat.$red-palette,
-      typography: Roboto,
-      density: 0,
-    ),
-    $overrides: (primary-container: #e53935)
+      color: (
+        theme-type: light,
+        primary: mat.$red-palette,
+      ),
+    )
   );
+
+  // Ghi đè màu chính xác
+  --mat-sys-primary: #e53935;
+  --mat-sys-primary-container: #ffdad6;
+  --mat-sys-on-primary: white;
 }
 
 body {
   color-scheme: light;
-  background-color: var(--mat-sys-surface);
+  background-color: #ffffff;
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
   margin: 0;
