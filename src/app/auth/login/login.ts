@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -13,4 +14,14 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class Login {
   checked1 = signal<boolean>(true);
+
+  constructor(private location: Location) {}
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      window.location.href = '/'; // or this.router.navigate(['/']);
+    }
+  }
 }
