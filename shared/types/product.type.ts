@@ -1,5 +1,5 @@
 export interface ProductBase {
-  id?: string;
+  id: string;
   name: string;
   description?: string;
   price: number;
@@ -7,7 +7,7 @@ export interface ProductBase {
   fuel: string;
   available: string;
   image: string;
-  seats: number;
+  seats: string;
   transmission: string;
   made_in: string;
   brand_id: string;

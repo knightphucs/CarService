@@ -7,8 +7,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./"
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "outDir": "../dist/shared",
+    "rootDir": "."
   },
-  "include": ["*.ts"]
+  "include": ["**/*.ts"]
 }

@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/db';
 
 interface BrandAttributes {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -12,15 +12,14 @@ export class Brand
   extends Model<BrandAttributes, BrandCreationAttributes>
   implements BrandAttributes
 {
-  public id!: number;
+  public id!: string;
   public name!: string;
 }
 
 Brand.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
+      type: DataTypes.STRING(36),
       primaryKey: true,
     },
     name: {

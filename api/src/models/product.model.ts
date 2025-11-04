@@ -5,11 +5,11 @@ import { Category } from './category.model';
 import { randomBytes } from 'crypto';
 
 interface ProductAttributes {
-  id: number;
-  brand_id: number;
-  category_id: number;
+  id: string;
+  brand_id: string;
+  category_id: string;
   name: string;
-  description: string;
+  description?: string;
   price: number;
   engine: number;
   fuel: string;
@@ -27,9 +27,9 @@ export class Product
   extends Model<ProductAttributes, ProductCreationAttributes>
   implements ProductAttributes
 {
-  public id!: number;
-  public brand_id!: number;
-  public category_id!: number;
+  public id!: string;
+  public brand_id!: string;
+  public category_id!: string;
   public name!: string;
   public description!: string;
   public price!: number;
@@ -60,7 +60,7 @@ Product.init(
       allowNull: false,
     },
     name: { type: DataTypes.STRING(45) },
-    description: { type: DataTypes.TEXT },
+    description: { type: DataTypes.TEXT, allowNull: true },
     price: { type: DataTypes.DECIMAL(10, 0) },
     engine: { type: DataTypes.FLOAT },
     fuel: { type: DataTypes.STRING(45) },

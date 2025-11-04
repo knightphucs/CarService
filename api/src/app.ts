@@ -5,6 +5,7 @@ import sequelize from './config/db';
 import authRoutes from './routes/auth.routes';
 import productRoutes from './routes/product.routes';
 import uploadRoutes from './routes/upload.routes';
+import { setupSwagger } from './config/swagger';
 
 dotenv.config();
 const app = express();
@@ -12,13 +13,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+setupSwagger(app);
+
 app.use('/api/auth', authRoutes);
 
 app.use('/api/products', productRoutes);
 
 app.use('/api/upload', uploadRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env['PORT'] || 3000;
 
 sequelize
   .authenticate()

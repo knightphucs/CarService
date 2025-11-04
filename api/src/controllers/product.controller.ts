@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import { Product } from '../models/product.model';
 import { Brand } from '../models/brand.model';
 import { Category } from '../models/category.model';
-import { ApiResponse, ProductResponse, ProductCreateDto, ProductUpdateDto } from '@shared';
+import { ProductResponse, ProductCreateDto, ProductUpdateDto } from '@shared/types/product.type';
+import { ApiResponse } from '@shared/types/api-response.type';
 
-// ✅ Lấy toàn bộ sản phẩm
 export const getAllProducts = async (
   _req: Request,
   res: Response<ApiResponse<ProductResponse[]>>
@@ -16,7 +16,6 @@ export const getAllProducts = async (
         { model: Category, as: 'category', attributes: ['name'] },
       ],
     });
-
     res.status(200).json({
       success: true,
       message: 'Fetched all products successfully',
@@ -32,7 +31,7 @@ export const getAllProducts = async (
   }
 };
 
-// ✅ Lấy sản phẩm cho trang Home
+// Lấy sản phẩm cho trang Home
 export const getHomeProducts = async (
   _req: Request,
   res: Response<ApiResponse<ProductResponse[]>>
@@ -68,7 +67,7 @@ export const getHomeProducts = async (
   }
 };
 
-// ✅ Lấy sản phẩm theo ID
+//  Lấy sản phẩm theo ID
 export const getProductById = async (
   req: Request<{ id: string }>,
   res: Response<ApiResponse<ProductResponse>>
@@ -105,7 +104,7 @@ export const getProductById = async (
   }
 };
 
-// ✅ Lấy sản phẩm theo brand
+//  Lấy sản phẩm theo brand
 export const getProductsByBrand = async (
   req: Request<{ brandId: string }>,
   res: Response<ApiResponse<ProductResponse[]>>
@@ -132,7 +131,7 @@ export const getProductsByBrand = async (
   }
 };
 
-// ✅ Thêm sản phẩm mới
+// Thêm sản phẩm mới
 export const createProduct = async (
   req: Request<{}, {}, ProductCreateDto>,
   res: Response<ApiResponse<ProductResponse>>
@@ -154,7 +153,7 @@ export const createProduct = async (
   }
 };
 
-// ✅ Cập nhật sản phẩm
+// Cập nhật sản phẩm
 export const updateProduct = async (
   req: Request<{ id: string }, {}, ProductUpdateDto>,
   res: Response<ApiResponse<ProductResponse>>
