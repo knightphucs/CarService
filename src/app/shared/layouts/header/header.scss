@@ -157,6 +157,9 @@ $border: #e0e0e0;
       // Dropdown menu
       .dropdown {
         position: relative;
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none;    /* Firefox (cũ) */
+        -ms-user-select: none;     /* IE10+ */
         user-select: none;
 
         a {
@@ -167,9 +170,10 @@ $border: #e0e0e0;
           align-items: center;
           gap: 0.25rem;
           transition: color 0.2s;
+          cursor: pointer;
 
           &:hover {
-            color: #1976d2;
+            color: #ff0000;
           }
         }
 
@@ -199,12 +203,12 @@ $border: #e0e0e0;
 
             &:hover {
               background: #f5f5f5;
-              color: #1976d2;
+              color: #ff0000;
             }
           }
         }
 
-        &.open {
+        &:hover {
           .dropdown-menu {
             opacity: 1;
             visibility: visible;
@@ -271,7 +275,8 @@ $border: #e0e0e0;
     .sidenav-backdrop {
       opacity: 1;
       visibility: visible;
-      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(10px); /* Safari 9+ */
+      backdrop-filter: blur(10px);         /* Chuẩn (Chrome, Edge, Firefox) */
     }
   }
 }

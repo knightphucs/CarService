@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div class="origin"><strong>Xuất xứ:</strong> {{ c.origin }}</div>
-            <div class="price">{{ c.price | number }} triệu</div>
+            <div class="price">{{ formatPrice(c.price) }}</div>
             <div class="actions">
               <button class="btn btn-ghost" [routerLink]="['/product', c.id]" [state]="{ car: c }"><span>Chi tiết</span></button>
               <div style="display:flex;gap:8px">

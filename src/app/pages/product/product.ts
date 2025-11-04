@@ -63,6 +63,14 @@ export class Product implements OnInit {
 
   sidebarOpen = false;
 
+  formatPrice(price: number): string {
+    if (price >= 1_000_000_000) {
+      return (price / 1_000_000_000).toFixed(2).replace(/\.00$/, '') + ' tỷ';
+    } else {
+      return (price / 1_000_000).toFixed(0) + ' triệu';
+    }
+  }
+
   ngOnInit(): void {
     // ---------- CẬP NHẬT ẢNH VÀ DỮ LIỆU TẠI ĐÂY ----------
     this.cars = [
@@ -70,7 +78,7 @@ export class Product implements OnInit {
         id: 1,
         name: 'Vua X1',
         brand: 'Toyota',
-        price: 850,
+        price: 850000000,
         engine: 1.5,
         fuel: 'Xăng',
         available: true,
@@ -85,7 +93,7 @@ export class Product implements OnInit {
         id: 2,
         name: 'Flash GT',
         brand: 'Honda',
-        price: 650,
+        price: 650000000,
         engine: 1.0,
         fuel: 'Xăng',
         available: true,
@@ -100,7 +108,7 @@ export class Product implements OnInit {
         id: 3,
         name: 'Storm EV',
         brand: 'VinFast',
-        price: 1200,
+        price: 1200000000,
         engine: 0,
         fuel: 'Điện',
         available: false,
@@ -115,7 +123,7 @@ export class Product implements OnInit {
         id: 4,
         name: 'Cruiser 300',
         brand: 'Ford',
-        price: 1350,
+        price: 13500000000,
         engine: 2.0,
         fuel: 'Xăng',
         available: true,
@@ -130,7 +138,7 @@ export class Product implements OnInit {
         id: 5,
         name: 'EcoDrive',
         brand: 'Hyundai',
-        price: 540,
+        price: 540000000,
         engine: 1.2,
         fuel: 'Xăng',
         available: true,
@@ -145,7 +153,7 @@ export class Product implements OnInit {
         id: 6,
         name: 'Dakar V6',
         brand: 'Toyota',
-        price: 2200,
+        price: 22000000000,
         engine: 3.5,
         fuel: 'Diesel',
         available: false,
@@ -160,7 +168,7 @@ export class Product implements OnInit {
         id: 7,
         name: 'MiniLux',
         brand: 'BMW',
-        price: 3000,
+        price: 30000000000,
         engine: 2.0,
         fuel: 'Xăng',
         available: true,
@@ -175,7 +183,7 @@ export class Product implements OnInit {
         id: 8,
         name: 'City E',
         brand: 'Kia',
-        price: 480,
+        price: 480000000,
         engine: 1.0,
         fuel: 'Xăng',
         available: true,
