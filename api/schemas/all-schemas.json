@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "LoginDto": {
+      "$ref": "#/definitions/LoginDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "RegisterDto": {
+      "$ref": "#/definitions/RegisterDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "AuthResponse": {
+      "$ref": "#/definitions/AuthResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "BrandResponse": {
+      "$ref": "#/definitions/BrandResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "CategoryResponse": {
+      "$ref": "#/definitions/CategoryResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductResponse": {
+      "$ref": "#/definitions/ProductResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductCreateDto": {
+      "$ref": "#/definitions/ProductCreateDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductUpdateDto": {
+      "$ref": "#/definitions/ProductUpdateDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ColorImageDto": {
+      "$ref": "#/definitions/ColorImageDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductColorResponse": {
+      "$ref": "#/definitions/ProductColorResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductColorsResponse": {
+      "$ref": "#/definitions/ProductColorsResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductDetailResponse": {
+      "$ref": "#/definitions/ProductDetailResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductHomeResponse": {
+      "$ref": "#/definitions/ProductHomeResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductListResponse": {
+      "$ref": "#/definitions/ProductListResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "UploadResponse": {
+      "$ref": "#/definitions/UploadResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "MultipleUploadResponse": {
+      "$ref": "#/definitions/MultipleUploadResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  }
+}

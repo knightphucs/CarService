@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "LoginDto": {
+      "$ref": "#/definitions/LoginDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "RegisterDto": {
+      "$ref": "#/definitions/RegisterDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "AuthResponse": {
+      "$ref": "#/definitions/AuthResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  }
+}

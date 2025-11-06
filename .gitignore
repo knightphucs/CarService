@@ -41,3 +41,13 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# === Backend (Node.js) ===
+api/node_modules/
+api/dist/
+api/build/
+api/.env
+api/.DS_Store
+
+# === Shared ===
+shared/node_modules/
