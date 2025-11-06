@@ -38,7 +38,7 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM('Admin', 'User', 'Producer', 'PremiumUser'),
+      type: DataTypes.ENUM('Admin', 'User'),
       allowNull: false,
       defaultValue: 'User',
     },
@@ -49,7 +49,7 @@ User.init(
   },
   {
     sequelize,
-    tableName: 'User',
+    tableName: 'user',
     timestamps: false,
   }
 );

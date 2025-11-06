@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "BrandResponse": {
+      "$ref": "#/definitions/BrandResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "CategoryResponse": {
+      "$ref": "#/definitions/CategoryResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductResponse": {
+      "$ref": "#/definitions/ProductResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductCreateDto": {
+      "$ref": "#/definitions/ProductCreateDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductUpdateDto": {
+      "$ref": "#/definitions/ProductUpdateDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ColorImageDto": {
+      "$ref": "#/definitions/ColorImageDto",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductColorResponse": {
+      "$ref": "#/definitions/ProductColorResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductColorsResponse": {
+      "$ref": "#/definitions/ProductColorsResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductDetailResponse": {
+      "$ref": "#/definitions/ProductDetailResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductHomeResponse": {
+      "$ref": "#/definitions/ProductHomeResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "ProductListResponse": {
+      "$ref": "#/definitions/ProductListResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  }
+}

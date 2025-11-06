@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "UploadResponse": {
+      "$ref": "#/definitions/UploadResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "MultipleUploadResponse": {
+      "$ref": "#/definitions/MultipleUploadResponse",
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  }
+}

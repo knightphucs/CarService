@@ -1,12 +1,13 @@
 export interface LoginDto {
   username: string;
   password: string;
+  remember_me?: boolean;
 }
 
 export interface RegisterDto {
   username: string;
-  email: string;
   password: string;
+  role?: 'Admin' | 'User';
 }
 
 export interface AuthResponse {
@@ -14,6 +15,7 @@ export interface AuthResponse {
   user: {
     id: number;
     username: string;
-    role?: string;
+    role?: 'Admin' | 'User';
+    remember_me?: boolean;
   };
 }

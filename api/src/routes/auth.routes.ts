@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { LoginDto, RegisterDto, AuthResponse } from '@shared/types/auth.type';
-import { ApiResponse } from '@shared/types/api-response.type';
+import { LoginDto, RegisterDto, AuthResponse } from '@shared/dto/auth/auth.dto';
+import { ApiResponse } from '@shared/dto/api-response.dto';
 import { User } from '../models/user.model';
 
 const router = Router();

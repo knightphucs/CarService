@@ -1,0 +1,8 @@
+export interface ProductListResponse {
+  name: string;
+  brand: string;
+  category: string;
+  price: number;
+  description?: string;
+  image?: string;
+}

@@ -1,5 +1,5 @@
 import 'express';
-import { CloudinaryUploadedFile } from '@shared/types/upload.type';
+import { CloudinaryUploadedFile } from '@shared/dto/upload/upload.dto';
 
 declare module 'express-serve-static-core' {
   interface Request {
