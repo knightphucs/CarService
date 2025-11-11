@@ -20,7 +20,25 @@
       "default",
       {
         "aria-required-children": "off",
-        "aria-command-name": "off"
+        "aria-command-name": "off",
+        "aria-valid-attr-value": "off"
+      }
+    ],
+    "compat-api/html": [
+      "default",
+      {
+        "ignore": [
+          "input[autocapitalize]"
+        ]
+      }
+    ],
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "user-select",
+          "backdrop-filter"
+        ]
       }
     ]
   }

@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { Contact } from './pages/contact/contact';
 import { Product } from './pages/product/product';
@@ -10,5 +11,8 @@ export const routes: Routes = [
     {path:'product', component: Product},
     { path: 'product/:id', component: ProductDetailComponent},
     { path: '', component: Home },
-    { path: 'login', component: Login }
+    { path: 'login', component: Login },
+    { path: 'admin', loadComponent: () => import('./auth/admin/admin').then(m => m.AdminComponent),},
+    // optional: fallback route
+    { path: '**', redirectTo: '' },
 ];

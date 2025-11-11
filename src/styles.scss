@@ -30,3 +30,23 @@ body {
   height: 100%;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+/* --- GLOBAL RESET & LAYOUT BASE --- */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+app-root, app-admin {
+  display: block;
+  height: 100%;
+}
+
+/* Đảm bảo container chính có chiều cao 100% để flex căn giữa hoạt động */
+body, app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

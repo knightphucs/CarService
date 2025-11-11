@@ -5,6 +5,7 @@ import { Header } from "./shared/layouts/header/header";
 import { Footer } from "./shared/layouts/footer/footer";
 import { filter } from 'rxjs';
 
+
 @Component({
   selector: 'app-root',
   imports: [CommonModule, RouterOutlet, Header, Footer],
@@ -23,8 +24,11 @@ export class App {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
+
+      const url = event.urlAfterRedirects || event.url;
+
       const hideOn = ['/login', '/register', '/forgot-password'];
-      this.showLayout = !hideOn.includes(event.urlAfterRedirects);
+      this.showLayout = !hideOn.some(path => url.startsWith(path)) && !url.startsWith('/admin');
     });
   }
 }

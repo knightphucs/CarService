@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "warning",
     "target": "ES2022",
     "module": "preserve",
     "baseUrl": ".",
@@ -35,5 +35,4 @@
     { "path": "./api" }
   ]
 }
-
 
